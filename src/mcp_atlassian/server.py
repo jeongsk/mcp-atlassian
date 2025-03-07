@@ -533,7 +533,7 @@ async def call_tool(name: str, arguments: Any) -> Sequence[TextContent]:
                 for doc in documents
             ]
 
-            return [TextContent(type="text", text=json.dumps(search_results, indent=2))]
+            return [TextContent(type="text", text=json.dumps(search_results, indent=2, ensure_ascii=False))]
 
         elif name == "confluence_get_page":
             doc = confluence_fetcher.get_page_content(arguments["page_id"])
@@ -544,7 +544,7 @@ async def call_tool(name: str, arguments: Any) -> Sequence[TextContent]:
             else:
                 result = {"content": doc.page_content}
 
-            return [TextContent(type="text", text=json.dumps(result, indent=2))]
+            return [TextContent(type="text", text=json.dumps(result, indent=2, ensure_ascii=False))]
 
         elif name == "confluence_get_comments":
             comments = confluence_fetcher.get_page_comments(arguments["page_id"])
@@ -557,7 +557,7 @@ async def call_tool(name: str, arguments: Any) -> Sequence[TextContent]:
                 for comment in comments
             ]
 
-            return [TextContent(type="text", text=json.dumps(formatted_comments, indent=2))]
+            return [TextContent(type="text", text=json.dumps(formatted_comments, indent=2, ensure_ascii=False))]
 
         elif name == "confluence_create_page":
             # Convert markdown content to HTML storage format
@@ -586,7 +586,7 @@ async def call_tool(name: str, arguments: Any) -> Sequence[TextContent]:
                 "content": doc.page_content[:500] + "..." if len(doc.page_content) > 500 else doc.page_content,
             }
 
-            return [TextContent(type="text", text=f"Page created successfully:\n{json.dumps(result, indent=2)}")]
+            return [TextContent(type="text", text=f"Page created successfully:\n{json.dumps(result, indent=2, ensure_ascii=False)}")]
 
         elif name == "confluence_update_page":
             page_id = arguments["page_id"]
@@ -615,7 +615,7 @@ async def call_tool(name: str, arguments: Any) -> Sequence[TextContent]:
                 "content": doc.page_content[:500] + "..." if len(doc.page_content) > 500 else doc.page_content,
             }
 
-            return [TextContent(type="text", text=f"Page updated successfully:\n{json.dumps(result, indent=2)}")]
+            return [TextContent(type="text", text=f"Page updated successfully:\n{json.dumps(result, indent=2, ensure_ascii=False)}")]
 
         # Jira operations
         elif name == "jira_get_issue":
@@ -623,7 +623,7 @@ async def call_tool(name: str, arguments: Any) -> Sequence[TextContent]:
                 arguments["issue_key"], expand=arguments.get("expand"), comment_limit=arguments.get("comment_limit")
             )
             result = {"content": doc.page_content, "metadata": doc.metadata}
-            return [TextContent(type="text", text=json.dumps(result, indent=2))]
+            return [TextContent(type="text", text=json.dumps(result, indent=2, ensure_ascii=False))]
 
         elif name == "jira_search":
             limit = min(int(arguments.get("limit", 10)), 50)
@@ -643,7 +643,7 @@ async def call_tool(name: str, arguments: Any) -> Sequence[TextContent]:
                 }
                 for doc in documents
             ]
-            return [TextContent(type="text", text=json.dumps(search_results, indent=2))]
+            return [TextContent(type="text", text=json.dumps(search_results, indent=2, ensure_ascii=False))]
 
         elif name == "jira_get_project_issues":
             limit = min(int(arguments.get("limit", 10)), 50)
@@ -659,7 +659,7 @@ async def call_tool(name: str, arguments: Any) -> Sequence[TextContent]:
                 }
                 for doc in documents
             ]
-            return [TextContent(type="text", text=json.dumps(project_issues, indent=2))]
+            return [TextContent(type="text", text=json.dumps(project_issues, indent=2, ensure_ascii=False))]
 
         elif name == "jira_create_issue":
             additional_fields = json.loads(arguments.get("additional_fields", "{}"))
@@ -681,7 +681,7 @@ async def call_tool(name: str, arguments: Any) -> Sequence[TextContent]:
                 assignee=arguments.get("assignee"),
                 **additional_fields,
             )
-            result = json.dumps({"content": doc.page_content, "metadata": doc.metadata}, indent=2)
+            result = json.dumps({"content": doc.page_content, "metadata": doc.metadata}, indent=2, ensure_ascii=False)
             return [TextContent(type="text", text=f"Issue created successfully:\n{result}")]
 
         elif name == "jira_update_issue":
@@ -689,7 +689,7 @@ async def call_tool(name: str, arguments: Any) -> Sequence[TextContent]:
             additional_fields = json.loads(arguments.get("additional_fields", "{}"))
 
             doc = jira_fetcher.update_issue(issue_key=arguments["issue_key"], fields=fields, **additional_fields)
-            result = json.dumps({"content": doc.page_content, "metadata": doc.metadata}, indent=2)
+            result = json.dumps({"content": doc.page_content, "metadata": doc.metadata}, indent=2, ensure_ascii=False)
             return [TextContent(type="text", text=f"Issue updated successfully:\n{result}")]
 
         elif name == "jira_delete_issue":
@@ -700,7 +700,7 @@ async def call_tool(name: str, arguments: Any) -> Sequence[TextContent]:
 
         elif name == "jira_add_comment":
             comment = jira_fetcher.add_comment(arguments["issue_key"], arguments["comment"])
-            return [TextContent(type="text", text=json.dumps(comment, indent=2))]
+            return [TextContent(type="text", text=json.dumps(comment, indent=2, ensure_ascii=False))]
 
         raise ValueError(f"Unknown tool: {name}")
 
