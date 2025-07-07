@@ -1,0 +1,273 @@
+{
+  "dxt_version": "0.1",
+  "name": "mcp-atlassian",
+  "display_name": "MCP Atlassian Integration",
+  "version": "1.0.0",
+  "description": "Bridge Atlassian products (Jira and Confluence) with AI language models using MCP",
+  "long_description": "The Model Context Protocol (MCP) Atlassian integration is an open-source implementation that bridges Atlassian products (Jira and Confluence) with AI language models following Anthropic's MCP specification.\n\nThis extension enables secure, contextual AI interactions with Atlassian tools while maintaining data privacy and security.\n\n## Key Features\n\n### Jira Integration\n- Search issues using JQL (Jira Query Language)\n- Get issue details and comments\n- Create and update issues\n- Transition issues through workflows\n- Add comments to issues\n\n### Confluence Integration\n- Search pages using CQL (Confluence Query Language)\n- Read page content (with HTML to Markdown conversion)\n- Create and update pages\n- Support for various content formats\n\n### Security & Authentication\n- Multiple authentication methods: Basic Auth, Personal Access Tokens (PAT), OAuth 2.0\n- Per-request authentication support\n- Secure credential handling\n\n### Configuration Options\n- Read-only mode for safe browsing\n- Tool filtering to enable/disable specific capabilities\n- Multi-cloud support for OAuth configurations",
+  "author": {
+    "name": "sooperset",
+    "email": "soomiles.dev@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sooperset/mcp-atlassian"
+  },
+  "homepage": "https://github.com/sooperset/mcp-atlassian",
+  "documentation": "https://github.com/sooperset/mcp-atlassian/blob/main/README.md",
+  "support": "https://github.com/sooperset/mcp-atlassian/issues",
+  "server": {
+    "type": "python",
+    "entry_point": "src/mcp_atlassian/main.py",
+    "mcp_config": {
+      "command": "python",
+      "args": [
+        "${__dirname}/src/main.py"
+      ],
+      "env": {
+        "PYTHONPATH": "${__dirname}/src/lib",
+        "CONFLUENCE_URL": "${user_config.confluence_url}",
+        "CONFLUENCE_USERNAME": "${user_config.confluence_username}",
+        "CONFLUENCE_API_TOKEN": "${user_config.confluence_api_token}",
+        "JIRA_URL": "${user_config.jira_url}",
+        "JIRA_USERNAME": "${user_config.jira_username}",
+        "JIRA_API_TOKEN": "${user_config.jira_api_token}",
+        "ATLASSIAN_READ_ONLY": "${user_config.read_only_mode}",
+        "ENABLED_TOOLS": "${user_config.enabled_tools}"
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "get_user_profile",
+      "description": "Retrieve profile information for a specific Jira user"
+    },
+    {
+      "name": "get_issue",
+      "description": "Get details of a specific Jira issue"
+    },
+    {
+      "name": "search",
+      "description": "Search Jira issues using JQL (Jira Query Language)"
+    },
+    {
+      "name": "create_issue",
+      "description": "Create a new Jira issue"
+    },
+    {
+      "name": "update_issue",
+      "description": "Update an existing Jira issue"
+    },
+    {
+      "name": "delete_issue",
+      "description": "Delete a Jira issue"
+    },
+    {
+      "name": "transition_issue",
+      "description": "Transition a Jira issue to a new status"
+    },
+    {
+      "name": "add_comment",
+      "description": "Add a comment to a Jira issue"
+    },
+    {
+      "name": "get_transitions",
+      "description": "Get available transitions for a Jira issue"
+    },
+    {
+      "name": "get_all_projects",
+      "description": "Get all accessible Jira projects"
+    },
+    {
+      "name": "get_project_issues",
+      "description": "Get issues from a specific Jira project"
+    },
+    {
+      "name": "batch_create_issues",
+      "description": "Create multiple Jira issues in a single operation"
+    },
+    {
+      "name": "get_agile_boards",
+      "description": "Get all Agile boards in Jira"
+    },
+    {
+      "name": "get_board_issues",
+      "description": "Get issues from a specific Agile board"
+    },
+    {
+      "name": "get_sprints_from_board",
+      "description": "Get sprints from an Agile board"
+    },
+    {
+      "name": "get_sprint_issues",
+      "description": "Get issues in a specific sprint"
+    },
+    {
+      "name": "create_sprint",
+      "description": "Create a new sprint"
+    },
+    {
+      "name": "update_sprint",
+      "description": "Update sprint details"
+    },
+    {
+      "name": "add_worklog",
+      "description": "Add work log to an issue"
+    },
+    {
+      "name": "get_worklog",
+      "description": "Get work logs for an issue"
+    },
+    {
+      "name": "create_version",
+      "description": "Create a project version"
+    },
+    {
+      "name": "get_project_versions",
+      "description": "Get versions for a project"
+    },
+    {
+      "name": "batch_create_versions",
+      "description": "Create multiple project versions"
+    },
+    {
+      "name": "link_to_epic",
+      "description": "Link an issue to an epic"
+    },
+    {
+      "name": "create_issue_link",
+      "description": "Create a link between issues"
+    },
+    {
+      "name": "remove_issue_link",
+      "description": "Remove a link between issues"
+    },
+    {
+      "name": "get_link_types",
+      "description": "Get available issue link types"
+    },
+    {
+      "name": "create_remote_issue_link",
+      "description": "Create a remote issue link"
+    },
+    {
+      "name": "download_attachments",
+      "description": "Download attachments from an issue"
+    },
+    {
+      "name": "batch_get_changelogs",
+      "description": "Get change logs for multiple issues"
+    },
+    {
+      "name": "search_fields",
+      "description": "Search Jira custom fields"
+    },
+    {
+      "name": "confluence_search",
+      "description": "Search Confluence content using CQL"
+    },
+    {
+      "name": "confluence_get_page",
+      "description": "Get content of a specific Confluence page"
+    },
+    {
+      "name": "confluence_create_page",
+      "description": "Create a new Confluence page"
+    },
+    {
+      "name": "confluence_update_page",
+      "description": "Update an existing Confluence page"
+    },
+    {
+      "name": "confluence_delete_page",
+      "description": "Delete a Confluence page"
+    },
+    {
+      "name": "confluence_get_page_children",
+      "description": "Get child pages of a Confluence page"
+    },
+    {
+      "name": "confluence_add_comment",
+      "description": "Add a comment to a Confluence page"
+    },
+    {
+      "name": "confluence_get_comments",
+      "description": "Get comments from a Confluence page"
+    },
+    {
+      "name": "confluence_add_label",
+      "description": "Add labels to a Confluence page"
+    },
+    {
+      "name": "confluence_get_labels",
+      "description": "Get labels from a Confluence page"
+    },
+    {
+      "name": "confluence_search_user",
+      "description": "Search for Confluence users"
+    }
+  ],
+  "tools_generated": true,
+  "keywords": ["atlassian", "jira", "confluence", "mcp", "integration", "productivity", "api", "automation"],
+  "license": "MIT",
+  "user_config": {
+    "jira_url": {
+      "type": "string",
+      "title": "Jira URL",
+      "description": "Your Jira instance URL (e.g., https://yourcompany.atlassian.net)",
+      "required": false
+    },
+    "jira_username": {
+      "type": "string",
+      "title": "Jira Username",
+      "description": "Your Jira username or email address",
+      "required": false
+    },
+    "jira_api_token": {
+      "type": "string",
+      "title": "Jira API Token",
+      "description": "Your Jira API token (create at https://id.atlassian.com/manage-profile/security/api-tokens)",
+      "sensitive": true,
+      "required": false
+    },
+    "confluence_url": {
+      "type": "string",
+      "title": "Confluence URL",
+      "description": "Your Confluence instance URL (e.g., https://yourcompany.atlassian.net/wiki)",
+      "required": false
+    },
+    "confluence_username": {
+      "type": "string",
+      "title": "Confluence Username",
+      "description": "Your Confluence username or email address",
+      "required": false
+    },
+    "confluence_api_token": {
+      "type": "string",
+      "title": "Confluence API Token",
+      "description": "Your Confluence API token (create at https://id.atlassian.com/manage-profile/security/api-tokens)",
+      "sensitive": true,
+      "required": false
+    },
+    "read_only_mode": {
+      "type": "boolean",
+      "title": "Read-Only Mode",
+      "description": "Enable read-only mode to prevent any write operations (safer for browsing)",
+      "default": false,
+      "required": false
+    },
+    "enabled_tools": {
+      "type": "string",
+      "title": "Enabled Tools",
+      "description": "Comma-separated list of tool names to enable (leave empty for all tools)",
+      "required": false
+    }
+  },
+  "compatibility": {
+    "claude_desktop": ">=0.10.0",
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": {
+      "python": ">=3.8.0 <4"
+    }
+  }
+}
