@@ -1,0 +1,143 @@
+{
+  "dxt_version": "0.1",
+  "name": "mcp-atlassian-confluence",
+  "display_name": "MCP Atlassian Confluence",
+  "version": "1.0.0",
+  "description": "Bridge Atlassian Confluence with AI language models using MCP",
+  "long_description": "The Model Context Protocol (MCP) Atlassian Confluence integration enables secure, contextual AI interactions with Confluence.\n\n## Key Features\n\n### Confluence Integration\n- Search pages using CQL (Confluence Query Language)\n- Read page content (with HTML to Markdown conversion)\n- Create and update pages\n- Support for various content formats\n- Manage page hierarchy and navigation\n- Add comments and labels to pages\n- Search for users\n\n### Security & Authentication\n- Multiple authentication methods: Basic Auth, Personal Access Tokens (PAT), OAuth 2.0\n- Per-request authentication support\n- Secure credential handling\n\n### Configuration Options\n- Read-only mode for safe browsing\n- Tool filtering to enable/disable specific capabilities\n- Multi-cloud support for OAuth configurations",
+  "author": {
+    "name": "sooperset",
+    "email": "soomiles.dev@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sooperset/mcp-atlassian"
+  },
+  "homepage": "https://github.com/sooperset/mcp-atlassian",
+  "documentation": "https://github.com/sooperset/mcp-atlassian/blob/main/README.md",
+  "support": "https://github.com/sooperset/mcp-atlassian/issues",
+  "server": {
+    "type": "python",
+    "entry_point": "src/confluence_mcp.py",
+    "mcp_config": {
+      "command": "python",
+      "args": [
+        "${__dirname}/src/confluence_mcp.py"
+      ],
+      "env": {
+        "PYTHONPATH": "${__dirname}/src/lib",
+        "CONFLUENCE_URL": "${user_config.confluence_url}",
+        "CONFLUENCE_USERNAME": "${user_config.confluence_username}",
+        "CONFLUENCE_API_TOKEN": "${user_config.confluence_api_token}",
+        "CONFLUENCE_PERSONAL_TOKEN": "${user_config.confluence_personal_token}",
+        "CONFLUENCE_SSL_VERIFY": "${user_config.confluence_ssl_verify}",
+        "ATLASSIAN_READ_ONLY": "${user_config.read_only_mode}",
+        "ENABLED_TOOLS": "${user_config.enabled_tools}"
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "confluence_search",
+      "description": "Search Confluence content using CQL"
+    },
+    {
+      "name": "confluence_get_page",
+      "description": "Get content of a specific Confluence page"
+    },
+    {
+      "name": "confluence_create_page",
+      "description": "Create a new Confluence page"
+    },
+    {
+      "name": "confluence_update_page",
+      "description": "Update an existing Confluence page"
+    },
+    {
+      "name": "confluence_delete_page",
+      "description": "Delete a Confluence page"
+    },
+    {
+      "name": "confluence_get_page_children",
+      "description": "Get child pages of a Confluence page"
+    },
+    {
+      "name": "confluence_add_comment",
+      "description": "Add a comment to a Confluence page"
+    },
+    {
+      "name": "confluence_get_comments",
+      "description": "Get comments from a Confluence page"
+    },
+    {
+      "name": "confluence_add_label",
+      "description": "Add labels to a Confluence page"
+    },
+    {
+      "name": "confluence_get_labels",
+      "description": "Get labels from a Confluence page"
+    },
+    {
+      "name": "confluence_search_user",
+      "description": "Search for Confluence users"
+    }
+  ],
+  "tools_generated": true,
+  "keywords": ["atlassian", "confluence", "mcp", "integration", "productivity", "api", "automation", "wiki", "documentation"],
+  "license": "MIT",
+  "user_config": {
+    "confluence_url": {
+      "type": "string",
+      "title": "Confluence URL",
+      "description": "Your Confluence instance URL (e.g., https://yourcompany.atlassian.net/wiki for Cloud, https://confluence.yourcompany.com for Server/DC)",
+      "required": true
+    },
+    "confluence_username": {
+      "type": "string",
+      "title": "Confluence Username",
+      "description": "Your Confluence username or email address (required for Cloud with API token)",
+      "required": false
+    },
+    "confluence_api_token": {
+      "type": "string",
+      "title": "Confluence API Token",
+      "description": "Your Confluence API token for Cloud (create at https://id.atlassian.com/manage-profile/security/api-tokens)",
+      "sensitive": true,
+      "required": false
+    },
+    "confluence_personal_token": {
+      "type": "string",
+      "title": "Confluence Personal Access Token",
+      "description": "Your Confluence Personal Access Token for Server/Data Center (create from your profile settings)",
+      "sensitive": true,
+      "required": false
+    },
+    "confluence_ssl_verify": {
+      "type": "boolean",
+      "title": "SSL Verification",
+      "description": "Enable SSL certificate verification (set to false only for self-signed certificates)",
+      "default": true,
+      "required": false
+    },
+    "read_only_mode": {
+      "type": "boolean",
+      "title": "Read-Only Mode",
+      "description": "Enable read-only mode to prevent any write operations (safer for browsing)",
+      "default": false,
+      "required": false
+    },
+    "enabled_tools": {
+      "type": "string",
+      "title": "Enabled Tools",
+      "description": "Comma-separated list of tool names to enable (leave empty for all tools)",
+      "required": false
+    }
+  },
+  "compatibility": {
+    "claude_desktop": ">=0.10.0",
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": {
+      "python": ">=3.8.0 <4"
+    }
+  }
+}

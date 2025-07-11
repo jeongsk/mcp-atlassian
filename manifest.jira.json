@@ -1,0 +1,223 @@
+{
+  "dxt_version": "0.1",
+  "name": "mcp-atlassian-jira",
+  "display_name": "MCP Atlassian Jira",
+  "version": "1.0.0",
+  "description": "Bridge Atlassian Jira with AI language models using MCP",
+  "long_description": "The Model Context Protocol (MCP) Atlassian Jira integration enables secure, contextual AI interactions with Jira.\n\n## Key Features\n\n### Jira Integration\n- Search issues using JQL (Jira Query Language)\n- Get issue details and comments\n- Create and update issues\n- Transition issues through workflows\n- Add comments to issues\n- Manage sprints and agile boards\n- Handle work logs and time tracking\n- Manage project versions\n- Create and manage issue links\n- Download attachments\n- Batch operations for efficiency\n\n### Security & Authentication\n- Multiple authentication methods: Basic Auth, Personal Access Tokens (PAT), OAuth 2.0\n- Per-request authentication support\n- Secure credential handling\n\n### Configuration Options\n- Read-only mode for safe browsing\n- Tool filtering to enable/disable specific capabilities\n- Multi-cloud support for OAuth configurations",
+  "author": {
+    "name": "sooperset",
+    "email": "soomiles.dev@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sooperset/mcp-atlassian"
+  },
+  "homepage": "https://github.com/sooperset/mcp-atlassian",
+  "documentation": "https://github.com/sooperset/mcp-atlassian/blob/main/README.md",
+  "support": "https://github.com/sooperset/mcp-atlassian/issues",
+  "server": {
+    "type": "python",
+    "entry_point": "src/jira_mcp.py",
+    "mcp_config": {
+      "command": "python",
+      "args": [
+        "${__dirname}/src/jira_mcp.py"
+      ],
+      "env": {
+        "PYTHONPATH": "${__dirname}/src/lib",
+        "JIRA_URL": "${user_config.jira_url}",
+        "JIRA_USERNAME": "${user_config.jira_username}",
+        "JIRA_API_TOKEN": "${user_config.jira_api_token}",
+        "JIRA_PERSONAL_TOKEN": "${user_config.jira_personal_token}",
+        "JIRA_SSL_VERIFY": "${user_config.jira_ssl_verify}",
+        "ATLASSIAN_READ_ONLY": "${user_config.read_only_mode}",
+        "ENABLED_TOOLS": "${user_config.enabled_tools}"
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "get_user_profile",
+      "description": "Retrieve profile information for a specific Jira user"
+    },
+    {
+      "name": "get_issue",
+      "description": "Get details of a specific Jira issue"
+    },
+    {
+      "name": "search",
+      "description": "Search Jira issues using JQL (Jira Query Language)"
+    },
+    {
+      "name": "create_issue",
+      "description": "Create a new Jira issue"
+    },
+    {
+      "name": "update_issue",
+      "description": "Update an existing Jira issue"
+    },
+    {
+      "name": "delete_issue",
+      "description": "Delete a Jira issue"
+    },
+    {
+      "name": "transition_issue",
+      "description": "Transition a Jira issue to a new status"
+    },
+    {
+      "name": "add_comment",
+      "description": "Add a comment to a Jira issue"
+    },
+    {
+      "name": "get_transitions",
+      "description": "Get available transitions for a Jira issue"
+    },
+    {
+      "name": "get_all_projects",
+      "description": "Get all accessible Jira projects"
+    },
+    {
+      "name": "get_project_issues",
+      "description": "Get issues from a specific Jira project"
+    },
+    {
+      "name": "batch_create_issues",
+      "description": "Create multiple Jira issues in a single operation"
+    },
+    {
+      "name": "get_agile_boards",
+      "description": "Get all Agile boards in Jira"
+    },
+    {
+      "name": "get_board_issues",
+      "description": "Get issues from a specific Agile board"
+    },
+    {
+      "name": "get_sprints_from_board",
+      "description": "Get sprints from an Agile board"
+    },
+    {
+      "name": "get_sprint_issues",
+      "description": "Get issues in a specific sprint"
+    },
+    {
+      "name": "create_sprint",
+      "description": "Create a new sprint"
+    },
+    {
+      "name": "update_sprint",
+      "description": "Update sprint details"
+    },
+    {
+      "name": "add_worklog",
+      "description": "Add work log to an issue"
+    },
+    {
+      "name": "get_worklog",
+      "description": "Get work logs for an issue"
+    },
+    {
+      "name": "create_version",
+      "description": "Create a project version"
+    },
+    {
+      "name": "get_project_versions",
+      "description": "Get versions for a project"
+    },
+    {
+      "name": "batch_create_versions",
+      "description": "Create multiple project versions"
+    },
+    {
+      "name": "link_to_epic",
+      "description": "Link an issue to an epic"
+    },
+    {
+      "name": "create_issue_link",
+      "description": "Create a link between issues"
+    },
+    {
+      "name": "remove_issue_link",
+      "description": "Remove a link between issues"
+    },
+    {
+      "name": "get_link_types",
+      "description": "Get available issue link types"
+    },
+    {
+      "name": "create_remote_issue_link",
+      "description": "Create a remote issue link"
+    },
+    {
+      "name": "download_attachments",
+      "description": "Download attachments from an issue"
+    },
+    {
+      "name": "batch_get_changelogs",
+      "description": "Get change logs for multiple issues"
+    },
+    {
+      "name": "search_fields",
+      "description": "Search Jira custom fields"
+    }
+  ],
+  "tools_generated": true,
+  "keywords": ["atlassian", "jira", "mcp", "integration", "productivity", "api", "automation", "project-management", "issue-tracking"],
+  "license": "MIT",
+  "user_config": {
+    "jira_url": {
+      "type": "string",
+      "title": "Jira URL",
+      "description": "Your Jira instance URL (e.g., https://yourcompany.atlassian.net for Cloud, https://jira.yourcompany.com for Server/DC)",
+      "required": true
+    },
+    "jira_username": {
+      "type": "string",
+      "title": "Jira Username",
+      "description": "Your Jira username or email address (required for Cloud with API token)",
+      "required": false
+    },
+    "jira_api_token": {
+      "type": "string",
+      "title": "Jira API Token",
+      "description": "Your Jira API token for Cloud (create at https://id.atlassian.com/manage-profile/security/api-tokens)",
+      "sensitive": true,
+      "required": false
+    },
+    "jira_personal_token": {
+      "type": "string",
+      "title": "Jira Personal Access Token",
+      "description": "Your Jira Personal Access Token for Server/Data Center (create from your profile settings)",
+      "sensitive": true,
+      "required": false
+    },
+    "jira_ssl_verify": {
+      "type": "boolean",
+      "title": "SSL Verification",
+      "description": "Enable SSL certificate verification (set to false only for self-signed certificates)",
+      "default": true,
+      "required": false
+    },
+    "read_only_mode": {
+      "type": "boolean",
+      "title": "Read-Only Mode",
+      "description": "Enable read-only mode to prevent any write operations (safer for browsing)",
+      "default": false,
+      "required": false
+    },
+    "enabled_tools": {
+      "type": "string",
+      "title": "Enabled Tools",
+      "description": "Comma-separated list of tool names to enable (leave empty for all tools)",
+      "required": false
+    }
+  },
+  "compatibility": {
+    "claude_desktop": ">=0.10.0",
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": {
+      "python": ">=3.8.0 <4"
+    }
+  }
+}
